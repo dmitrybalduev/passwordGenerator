@@ -3,11 +3,10 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-   var password = generatePassword();
+  var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
@@ -73,25 +72,31 @@ function askSpecials(){
   return input;
 }
 
+//function to generate random number
 function getRandomInt(number) {
   return Math.floor(Math.random() * Math.floor(number));
 }
 
 function generatePassword(){
+  //declaring variable to store password
   let randomPassword = "";
+  //calling pop-up functions
   askLengthPassword();
   askLowerCase();
   askUpperCase();
   askNumeric();
   askSpecials();
 
+  //condition if none of criteria is chosen
   if(!(hasSpecials || hasUpperCase || hasLowerCase || hasNumeric)){
     alert("Please choose at least one criteria");
     return;
   }
   
+  //declaring empty array to store all possible values
   let emptyArr = [];
 
+  //if user chooses numeric values, add them to emptyArr
   if(hasNumeric){
     emptyArr = emptyArr.concat(numbers);
   }
@@ -111,6 +116,7 @@ function generatePassword(){
   //shuffle array
   emptyArr.sort(() => Math.random() - 0.5);
 
+  //loop through emptyArr and by choosing random index, store random character in variable
   for(let i = 0; i < passwordLength; i++){
     randomPassword = randomPassword + emptyArr[getRandomInt(emptyArr.length)];
   }
