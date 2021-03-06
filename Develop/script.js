@@ -73,8 +73,12 @@ function askSpecials(){
   return input;
 }
 
+function getRandomInt(number) {
+  return Math.floor(Math.random() * Math.floor(number));
+}
 
 function generatePassword(){
+  let randomPassword = "";
   askLengthPassword();
   askLowerCase();
   askUpperCase();
@@ -107,5 +111,8 @@ function generatePassword(){
   //shuffle array
   emptyArr.sort(() => Math.random() - 0.5);
 
-  console.log(`shuffled array: ${emptyArr}`);
+  for(let i = 0; i < passwordLength; i++){
+    randomPassword = randomPassword + emptyArr[getRandomInt(emptyArr.length)];
+  }
+  return randomPassword;
 }
