@@ -13,7 +13,7 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-let letters = "qwertyuiopasdfghjklzxcvbnm".split("");
+let lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnm".split("");
 let upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNM".split("");
 let numbers = "1234567890".split("");
 let specials = "`~!@#$%^&*()-_+={}[]:;'?/.>,<|\\\"".split("");
@@ -32,7 +32,7 @@ function askLengthPassword(){
   let input;
   //while loop to keep asking user to enter a valid number
   //check if value is numeric and fall into boundaries
-   while(isNaN(passwordLength) || (passwordLength < 8 || passwordLength > 128)){
+   while(isNaN(input) || (input < 8 || input > 128)){
      if(count === 0){
       input = prompt("Please choose length of password.\nMinimum is 8, maximum is 128");
      } else{
@@ -75,5 +75,37 @@ function askSpecials(){
 
 
 function generatePassword(){
-  console.log(askLengthPassword()); 
+  askLengthPassword();
+  askLowerCase();
+  askUpperCase();
+  askNumeric();
+  askSpecials();
+
+  if(!(hasSpecials || hasUpperCase || hasLowerCase || hasNumeric)){
+    alert("Please choose at least one criteria");
+    return;
+  }
+  
+  let emptyArr = [];
+
+  if(hasNumeric){
+    emptyArr = emptyArr.concat(numbers);
+  }
+
+  if(hasLowerCase){
+    emptyArr = emptyArr.concat(lowerCaseLetters);
+  }
+
+  if(hasUpperCase){
+    emptyArr = emptyArr.concat(upperCaseLetters);
+  }
+
+  if(hasSpecials){
+    emptyArr = emptyArr.concat(specials);
+  }
+
+  //shuffle array
+  emptyArr.sort(() => Math.random() - 0.5);
+
+  console.log(`shuffled array: ${emptyArr}`);
 }
